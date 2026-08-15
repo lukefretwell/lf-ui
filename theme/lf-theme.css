@@ -1,0 +1,99 @@
+/* lf-ui theme layer — Bootstrap 5.3 custom-property overrides.
+   Canonical here: https://github.com/lukefretwell/lf-standards/blob/main/brand
+   Structure follows scangov/components' public/css/scangov.css. */
+
+/* Fonts */
+
+@font-face {
+    font-family: "Public Sans";
+    src: url("../vendor/fonts/public-sans/PublicSans-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Public Sans";
+    src: url("../vendor/fonts/public-sans/PublicSans-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Public Sans";
+    src: url("../vendor/fonts/public-sans/PublicSans-Italic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Public Sans";
+    src: url("../vendor/fonts/public-sans/PublicSans-BoldItalic.woff2") format("woff2");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "PT Serif";
+    src: url("../vendor/fonts/pt-serif/PTSerif-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roboto Mono";
+    src: url("../vendor/fonts/roboto-mono/RobotoMono-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roboto Mono";
+    src: url("../vendor/fonts/roboto-mono/RobotoMono-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Base font families */
+
+:root {
+    --lf-font-body: "Public Sans", system-ui, sans-serif;
+    --lf-font-serif: "PT Serif", Georgia, serif;
+    --lf-font-mono: "Roboto Mono", ui-monospace, monospace;
+}
+
+body {
+    font-family: var(--lf-font-body);
+}
+
+code, kbd, pre, samp {
+    font-family: var(--lf-font-mono);
+}
+
+/* Light mode (default) */
+
+:root, [data-bs-theme=light] {
+    --bs-primary: #0050d8;
+    --bs-primary-rgb: 0, 80, 216;
+    --bs-link-color: #0050d8;
+    --bs-link-color-rgb: 0, 80, 216;
+    --bs-link-hover-color: #0050d8;
+    --bs-link-hover-color-rgb: 0, 80, 216;
+}
+
+/* Dark mode */
+
+[data-bs-theme=dark] {
+    --bs-primary: #4a90e2;
+    --bs-primary-rgb: 74, 144, 226;
+    --bs-link-color: #4a90e2;
+    --bs-link-color-rgb: 74, 144, 226;
+    --bs-link-hover-color: #4a90e2;
+    --bs-link-hover-color-rgb: 74, 144, 226;
+}
