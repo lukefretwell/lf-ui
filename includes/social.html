@@ -1,0 +1,259 @@
+{% if include.size == "small" %}
+  <!-- Bio social -->
+  <div class="d-flex flex-wrap align-items-center gap-3 mt-3 mb-3">
+    {% if author_data and page.parent != "books" %}
+      {% assign data = author_data %}
+    {% else %}
+      {% assign data = page %}
+    {% endif %}
+    {% if data.website %}
+
+      <a
+        href="{{ data.website }}"
+        aria-label="Website"
+        class="icon-link">
+        <i class="{{ site.data.connect.website }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.email %}
+
+      <a
+        aria-label="Email"
+        href="mailto:{{ data.email | remove: 'mailto:' }}"
+        class="icon-link">
+        <i class=" {{ site.data.connect.email }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.calendar %}
+
+      <a
+        aria-label="Calendar"
+        href="{{ data.calendar }}"
+        class="icon-link">
+        <i class=" {{ site.data.connect.calendar }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.subscribe %}
+
+      <a
+        href="{{ data.subscribe }}"
+        aria-label="Subscribe"
+        class="icon-link">
+        <i class="{{ site.data.connect.subscribe }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.linkedin %}
+
+      <a
+        href="{{ data.linkedin }}"
+        aria-label="LinkedIn"
+        class="icon-link">
+        <i class="{{ site.data.connect.linkedin }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.bluesky %}
+
+      <a
+        href="{{ data.bluesky }}"
+        rel="me"
+        aria-label="Bluesky"
+        class="icon-link">
+        <i class="{{ site.data.connect.bluesky }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.mastodon %}
+
+      <a
+        href="{{ data.mastodon }}"
+        rel="me"
+        aria-label="Mastodon"
+        class="icon-link">
+        <i class="{{ site.data.connect.mastodon }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.patreon %}
+
+      <a
+        href="{{ data.patreon }}"
+        aria-label="Patreon"
+        class="icon-link">
+        <i class="{{ site.data.connect.patreon }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.medium %}
+
+      <a
+        href="{{ data.medium }}"
+        aria-label="Medium"
+        class="icon-link">
+        <i class="{{ site.data.connect.medium }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.youtube %}
+
+      <a
+        href="{{ data.youtube }}"
+        aria-label="YouTube"
+        class="icon-link">
+        <i class="{{ site.data.connect.youtube }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.vimeo %}
+
+      <a
+        href="{{ data.vimeo }}"
+        aria-label="Vimeo"
+        class="icon-link">
+        <i class="{{ site.data.connect.vimeo }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.instagram %}
+
+      <a
+        href="{{ data.instagram }}"
+        aria-label="Instagram"
+        class="icon-link">
+        <i class="{{ site.data.connect.instagram }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.flickr %}
+
+      <a
+        href="{{ data.flickr }}"
+        aria-label="Flickr"
+        class="icon-link">
+        <i class="{{ site.data.connect.flickr }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.figma %}
+
+      <a
+        href="{{ data.figma }}"
+        aria-label="Figma"
+        class="icon-link">
+        <i class="{{ site.data.connect.figma }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.tumblr %}
+
+      <a
+        href="{{ data.tumblr }}"
+        aria-label="Tumblr"
+        class="icon-link">
+        <i class="{{ site.data.connect.tumblr }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.library %}
+
+      <a
+        href="{{ data.library }}"
+        aria-label="Library"
+        class="icon-link">
+        <i class="{{ site.data.connect.library }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.bookshop %}
+
+      <a
+        href="{{ data.bookshop }}"
+        aria-label="Bookshop"
+        class="icon-link">
+        <i class="{{ site.data.connect.bookshop }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.goodreads %}
+
+      <a
+        href="{{ data.goodreads }}"
+        aria-label="GoodReads"
+        class="icon-link">
+        <i class="{{ site.data.connect.goodreads}} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.amazon %}
+
+      <a
+        href="{{ data.amazon }}"
+        aria-label="Amazon"
+        class="icon-link">
+        <i class="{{ site.data.connect.amazon }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.apple %}
+
+      <a
+        href="{{ data.apple }}"
+        aria-label="Apple"
+        class="icon-link">
+        <i class="{{ site.data.connect.apple }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.spotify %}
+
+      <a
+        href="{{ data.spotify }}"
+        aria-label="Spotify"
+        class="icon-link">
+        <i class="{{ site.data.connect.spotify }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.rss %}
+
+      <a
+        href="{{ data.rss }}"
+        aria-label="RSS"
+        class="icon-link">
+        <i class="{{ site.data.connect.rss }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+    {% if data.github %}
+
+      <a
+        href="{{ data.github }}"
+        aria-label="GitHub"
+        class="icon-link">
+        <i class="{{ site.data.connect.github }} {{ site.data.connect.sm }}"></i>
+      </a>
+
+    {% endif %}
+  </div>
+{% else %}
+  <!-- Connect -->
+  {% for item in site.data.connect.docs %}
+    <div class="col">
+      <div class="text-center card h-100"><div class="card-body">
+        <a
+          href="{{ item.url }}"
+          aria-label="{{ item.name }}"
+          class="body-link">
+          <p class="mb-2">
+            <i class="{{ item.icon }} {{ site.data.connect.md }}"></i>
+          </p>
+        </a>
+        <p class="card-caption">{{ item.name }}</p>
+      </div></div>
+    </div>
+  {% endfor %}
+{% endif %}

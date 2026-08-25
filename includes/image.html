@@ -1,0 +1,299 @@
+{% comment %}
+  Image display template for different page types, keyed by page.parent
+  (or page.layout, for the one case that predates the parent convention).
+  Each consumer only has content for a subset of these branches — the
+  rest are simply never matched, which is fine.
+{% endcomment %}
+
+{% if page.parent == "books" %}
+  {% if page.img-book %}
+    <figure class="image-figure">
+      <img
+        src="{{ site.baseurl }}/assets/img/{{ page.img-path }}/{{ page.img-book }}"
+        alt="{{ page.book-title }}"
+        class="mb-3 shadow-lg border xl"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+{% elsif page.parent == "papers" or page.parent == "news" or page.parent == "signal" %}
+  {% if page.img-og %}
+    <figure class="image-figure">
+      <img
+        src="{{ site.baseurl }}/assets/img/posts/{{ page.img-og }}"
+        alt="{{ page.img-alt }}"
+        class="mb-3 border xxl"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+{% elsif page.layout == "research" %}
+  {% if page.img-og %}
+    <figure class="image-figure">
+      <img
+        src="{{ site.baseurl }}/assets/img/posts/{{ page.img-og }}"
+        alt="{{ page.img-alt }}"
+        class="mb-3 border xxl"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+{% elsif page.parent == "thoughts" %}
+  {% if page.img-og %}
+    <figure class="image-figure">
+      <img
+        src="{{ site.baseurl }}/assets/img/{{ page.img-path }}/{{ page.img-og }}"
+        alt="{{ page.img-alt }}"
+        class="mb-2 border xxl post-top-image"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+{% elsif page.collection == "posts" and page.parent != "signal" %}
+  {% if page.img-og %}
+    <figure class="image-figure">
+      <img
+        src="{% if page.img-path %}{{ site.baseurl }}/assets/img/{{ page.img-path }}/{{ page.img-og }}{% else %}{{ site.baseurl }}/assets/img/{{ page.img-og }}{% endif %}"
+        alt="{{ page.img-alt }}"
+        class="mb-2 border xxl post-top-image"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+{% elsif page.parent == "labs" or page.parent == "events" or page.parent == "orgs" or page.parent == "work" %}
+  {% assign feature_img = page.img-feat | default: page.img-og %}
+  {% if feature_img %}
+    <figure class="image-figure">
+      <img
+        src="{{ site.baseurl }}/assets/img/{{ page.img-path }}/{{ feature_img }}"
+        alt="{{ page.img-alt }}"
+        class="mb-2 border xxl post-top-image"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+{% elsif page.parent == "briefs" %}
+  {% if page.img-og %}
+    <figure class="image-figure">
+      <img
+        src="{{ site.baseurl }}/assets/img/posts/{{ page.img-og }}"
+        alt="{{ page.img-alt }}"
+        class="mb-2 border xxl"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+{% elsif page.parent == "people" %}
+  {% if page.img-feat %}
+    <img src="{{ site.baseurl }}/assets/img/{{ page.img-path }}/{{ page.img }}" alt="{{ page.img-alt }}"
+      class="bio-avatar rounded-circle" style="width: 9rem; height: 9rem; object-fit: cover;">
+  {% endif %}
+
+{% elsif page.parent == "dm" %}
+  {% if page.img-feat %}
+    <img src="{{ site.baseurl }}/assets/img/{{ page.img-path }}/{% if page.group %}{{ page.img[i] }}{% else %}{{ page.img }}{% endif %}" alt="{% if page.group %}{{ page.img-alt[i] }}{% else %}{{ page.img-alt }}{% endif %}"
+      class="mb-3 bio-avatar rounded-circle" style="width: 7rem; height: 7rem; object-fit: cover;">
+  {% endif %}
+
+{% elsif page.parent == "podcast" %}
+  {% if page.img-feat %}
+    <figure class="image-figure">
+      <img
+        src="{{ site.baseurl }}/assets/img/{{ page.img-path }}/{{ page.img-feat }}"
+        alt="{{ page.img-alt }}"
+        class="mb-3 shadow-lg border rounded-circle lg"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+{% else %}
+  {% comment %}
+    img-og/image only render here for content that declares a page.parent
+    (every govfresh content type sets one via its collection defaults).
+    Content with no parent — e.g. lukefretwell's untyped _pages — uses
+    img-og purely as the og:image meta value (see header.html), not for
+    inline display, so it falls through to the page.img check below instead.
+  {% endcomment %}
+  {% if page.img-og and page.parent %}
+    <figure class="image-figure">
+      <img
+        src="{{ site.baseurl }}/assets/img/{{ page.img-path }}/{{ page.img-og }}"
+        alt="{{ page.img-alt | default: page.title }}"
+        class="mb-3 shadow-lg border"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% elsif page.image and page.parent %}
+    {% comment %} Fallback for pages using 'image' instead of 'img-feat' {% endcomment %}
+    <figure class="image-figure">
+      <img
+        src="{{ site.baseurl }}/assets/img/{% if page.img-path %}{{ page.img-path }}/{% endif %}{{ page.image }}"
+        alt="{{ page.img-alt | default: page.title }}"
+        class="mb-3 shadow-lg border"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% elsif page.img %}
+    {% comment %} Fallback for pages using 'img' instead of 'img-og'/'image' {% endcomment %}
+    <figure class="image-figure">
+      <img
+        src="{{ site.baseurl }}/assets/img/{{ page.img-path | default: site.img-path }}/{{ page.img }}"
+        alt="{{ page.img-alt | default: page.title }}"
+        class="mb-3 shadow-lg border"
+        loading="{{ include.loading | default: 'lazy' }}"
+        {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+      {% if page.img-caption %}
+        <figcaption>
+          <p class="img-caption">
+            {% if page.img-link %}
+                <a href="{{ site.baseurl }}{{ page.img-link }}" class="body-link">
+              {% endif %}
+              {{ page.img-caption }}
+              {% if page.img-link %}
+                </a>
+              {% endif %}
+          </p>
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+{% endif %}

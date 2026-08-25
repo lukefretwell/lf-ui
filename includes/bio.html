@@ -1,0 +1,4 @@
+{% for author in page.author %}
+  {% assign author_data = site.people | where: "title", author | first %}
+  {% include bio-card.html %}
+{% endfor %}
