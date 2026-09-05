@@ -86,7 +86,7 @@ This is the same shape as the analytics pattern above (identical *mechanism*, pe
 {
   "feedback": { "text": "...", "link": "/feedback", "link_text": "...", "icon": "fa-solid fa-..." },
   "scangov": { "link": "https://..." },
-  "cta_banner": { "button_text": "...", "button_link": "...", "sponsor_text": "...", "sponsor_link": "..." },
+  "cta_banner": { "links": [{ "text": "...", "url": "...", "icon": "fa-..." }], "sponsor_text": "...", "sponsor_link": "..." },
   "services_cta": { "button_text": "...", "button_link": "..." },
   "analytics": { "google": "G-..." },
   "theme": { "light": "#ffffff", "dark": "#..." }
@@ -97,14 +97,14 @@ This is the same shape as the analytics pattern above (identical *mechanism*, pe
 
 Two things matter if you're adding a third consumer:
 
-- **`cta_banner.button_link` must equal that page's real `page.url` exactly**, trailing slash and all — `footer.html` compares them directly (`page.url != cta.button_link`) to hide the banner while a reader is already on its target page, so a mismatch (e.g. configuring `/subscribe` when the page's actual permalink renders as `/subscribe/`) means the banner never hides on its own page.
+- **Each `cta_banner.links[].url` must equal that page's real `page.url` exactly**, trailing slash and all — `cta-banner.html` compares them directly to filter that link out while a reader is already on its target page, so a mismatch (e.g. configuring `/subscribe` when the page's actual permalink renders as `/subscribe/`) means that link never hides on its own page. With multiple links, only the matching one drops out — the others still show.
 - **Omit `sponsor_text`/`sponsor_link` entirely when there's no sponsor — never set them to `""`.** Liquid treats an empty string as truthy, so `{% if include.sponsor_text %}` would still render a broken `Sponsor: <a href=""></a>` if the key is merely blank instead of absent (or JSON `null`, which Liquid does read as falsy).
 
 `scangov.link` and `feedback.link` are each independently optional — omit either (or the site-index page itself) and that piece of the footer just doesn't render, no other config needed.
 
 ## CTA banner — one component, always the same shape
 
-`includes/cta-banner.html` (paired with `js/cta-banner.js`) replaced an earlier `subscribe-button.html` that only wrapped itself in the fixed floating band when a `sponsor` param was passed — which is exactly how the two consumers ended up styling the same include two different ways in site-local CSS (one always passing a sponsor and relying on the band, one never passing one and inventing a bare-button fallback). The band (`#cta-banner`) is now unconditional; only the sponsor credit inside it is conditional. `sponsor_text`/`sponsor_link` are passed as plain data params, not a pre-built HTML string — the include builds the `Sponsor: <a>...</a>` markup itself.
+`includes/cta-banner.html` (paired with `js/cta-banner.js`) replaced an earlier `subscribe-button.html` that only wrapped itself in the fixed floating band when a `sponsor` param was passed — which is exactly how the two consumers ended up styling the same include two different ways in site-local CSS (one always passing a sponsor and relying on the band, one never passing one and inventing a bare-button fallback). The band (`#cta-banner`) now takes a `links` array (one or more `{text, url, icon}` buttons, `icon` optional) instead of a single fixed button — it only renders once at least one link survives the current-page filter (see above); the sponsor credit inside it is separately conditional on `sponsor_text`. `sponsor_text`/`sponsor_link` are passed as plain data params, not a pre-built HTML string — the include builds the `Sponsor: <a>...</a>` markup itself.
 
 ## Favicon — shared include, per-site artwork, shared manifest template
 
