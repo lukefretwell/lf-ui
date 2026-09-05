@@ -40,7 +40,7 @@ No params — reads `site.data.site` (each consumer's own `_data/site.json`) for
 
 ## `cta-banner.html`
 
-Params: `href`, `aria_label`, `text`, and optional `sponsor_text`/`sponsor_link` (plain data, not raw HTML — the include builds `Sponsor: <a href="{{ sponsor_link }}">{{ sponsor_text }}</a>` itself). The outer `#cta-banner` band is unconditional; only the sponsor `<span class="cta-banner-sponsor">` is conditional on `sponsor_text` being present. Pairs with `../js/cta-banner.js` (vendored to `assets/lf-ui/cta-banner.js`), which fades the whole band in after the reader scrolls past ~40% of the viewport and hides it again near the footer. The button's `id="cta-banner-button"` and the band's `id="cta-banner"` are fixed, not parameterized — the script relies on those exact ids.
+Params: `links` (array of `{text, url, icon}` — `icon` optional, a bare Font Awesome solid icon name like `fa-envelope-open-text`, shown before the text when present) and optional `sponsor_text`/`sponsor_link` (plain data, not raw HTML — the include builds `Sponsor: <a href="{{ sponsor_link }}">{{ sponsor_text }}</a>` itself). Each link whose `url` matches the current `page.url` is filtered out before rendering (so the banner doesn't show a link to the page you're already on); the whole `#cta-banner` band only renders if at least one link survives that filter — only the sponsor `<span class="cta-banner-sponsor">` is separately conditional on `sponsor_text` being present. Pairs with `../js/cta-banner.js` (vendored to `assets/lf-ui/cta-banner.js`), which fades the whole band in after the reader scrolls past ~40% of the viewport and hides it again near the footer, toggling `tabindex` on every `.cta-banner-button` inside it (not a single fixed id — there can be more than one link now). The band's `id="cta-banner"` is still fixed, not parameterized.
 
 ## `favicon.html`
 
@@ -52,7 +52,15 @@ No params beyond `page.url`/`page.title`, already in scope. Fixed set of platfor
 
 ## `author.html`
 
-No params — reads `page.author` (falls back to `post.author` when looping a collection), loops it, looks each name up in `site.people`, links to the profile page, and only renders a byline at all if the matched profile has real content (`author_data.content.size > 1`).
+No params — reads `page.author` (falls back to `post.author` when looping a collection), loops it, looks each name up in `site.people`, links to the profile page, and only renders a byline at all if the matched profile has real content (`author_data.content.size > 1`). Renders the byline bare — no "By:" label — and every caller lists it before `date.html` (byline, then date, is the standard order).
+
+## `date.html` / `updated.html`
+
+No params — read `post.date`/`item.date`/`page.date` (and `.modified` for `updated.html`) already in scope, formatted with `site.date`. Both render bare (no "Posted:" label on `date.html`); `updated.html` keeps its "Updated:" label since it sits next to a bare date and needs to say which date it is.
+
+## `read-time.html`
+
+No params — reads `content` already in scope, estimates minutes at 175 words/minute. Renders bare (no "Estimated read time:" label), same convention as `date.html`. Byte-identical between consumers, so it's here rather than duplicated per-site. `read-time-bar.html` (the scroll-progress bar) is a separate, unrelated include and stays local to each consumer.
 
 ## `bio-card.html`
 
