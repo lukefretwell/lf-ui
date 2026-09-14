@@ -26,7 +26,7 @@ Every `.html` file in `includes/`/`layouts/` is vendored the same way, by filena
 
 ### Font path substitution (expected, not drift)
 
-Both consumers already had their own `/assets/fonts/mona-sans/...` and `/assets/fonts/roboto-mono/...` layout before `lf-ui` existed. Rather than introduce a second font location, `lf-theme.css`'s `@font-face` `src` paths (`../vendor/fonts/...`, correct relative to `lf-ui/theme/`) get rewritten to `/assets/fonts/...` when copied into a consumer:
+Both consumers already had their own `/assets/fonts/public-sans/...` and `/assets/fonts/roboto-mono/...` layout before `lf-ui` existed. Rather than introduce a second font location, `lf-theme.css`'s `@font-face` `src` paths (`../vendor/fonts/...`, correct relative to `lf-ui/theme/`) get rewritten to `/assets/fonts/...` when copied into a consumer:
 
 ```bash
 sed 's#\.\./vendor/fonts/#/assets/fonts/#g' theme/lf-theme.css > <consumer>/assets/lf-ui/lf-theme.css
