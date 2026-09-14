@@ -35,9 +35,12 @@ const trackedFiles = [
   { sourcePath: 'js/cta-banner.js', consumerPath: 'assets/lf-ui/cta-banner.js' },
   { sourcePath: 'js/analytics.js', consumerPath: 'js/analytics.js' },
   { sourcePath: 'js/toc-active.js', consumerPath: 'js/toc-active.js' },
+  { sourcePath: 'js/theme.js', consumerPath: 'js/theme.js' },
   { sourcePath: 'favicon/site.webmanifest', consumerPath: 'assets/img/favicon/site.webmanifest' },
   { sourcePath: 'data/services.json', consumerPath: '_data/services.json' },
+  { sourcePath: 'data/icon_presets.json', consumerPath: '_data/icon_presets.json' },
   { sourcePath: 'robots.txt', consumerPath: 'robots.txt' },
+  { sourcePath: 'vendor/icons/arrow-up-right-from-square.svg', consumerPath: 'assets/img/icons/arrow-up-right-from-square.svg' },
 ];
 
 // includes/ and layouts/ are Jekyll _includes/_layouts-compatible partials

@@ -18,7 +18,7 @@ vendor/
   bootstrap.min.css          # stock, unmodified, v5.3.2
   bootstrap.bundle.min.js    # stock, unmodified, v5.3.2 (includes Popper — trim later once actual usage is known)
   fonts/
-    mona-sans/
+    public-sans/
     roboto-mono/
 theme/
   lf-theme.css                # accent color, border-color, shadow and font-family/motion tokens, light/dark via [data-bs-theme]
@@ -145,6 +145,16 @@ What a brand-new consumer needs, now that the sections above cover most per-site
 - **`_data/nav.json`**, **`_data/connect.yml`** (icon-class block + a real `docs:` list for the connect page — see `social.html`'s default branch), **`_data/site-index.yml`** (which collections to index, and under what label).
 - **`assets/img/favicon/`**: `favicon.svg` (this site's own square icon mark), `favicon.ico`, `apple-icon-180x180.png`, `android-icon-192x192.png` — `site.webmanifest` needs no authoring at all, it's vendored and self-populates from `_config.yml`/`site.json`.
 - **`_includes/brand-mark.html`** (this site's own inline navbar SVG — see "`#logo`" below) and a real `_people/<you>.md` entry (required even for a single-author site — see `includes/README.md`).
+
+## Content conventions
+
+Accumulated authoring rules for anyone (human or agent) writing markup against this theme — not enforced by a linter, so they only hold if whoever's editing a consumer's templates knows to follow them:
+
+- **No `text-uppercase` eyebrow/caption labels.** Full caps reads as shouting and turns an ordinary word ("sections", "schemas") into something a reader has to re-parse as "not really a word". Use the `.lf-eyebrow` class (`theme/lf-components.css`) instead, and keep the label text itself in sentence case.
+- **Badges are regular weight, not bold** (`.badge` sets `font-weight: 400` in `theme/lf-components.css`). A status tag is a label, not emphasis — don't reintroduce bold with an inline style or a wrapping `<strong>`.
+- **Don't use `<strong>` unless the content genuinely needs emphasis and that's actually been asked for.** It's not a default way to make a name or title stand out — links, headings, and table structure already carry that weight. Reach for it only when someone explicitly wants a word or phrase emphasized.
+- **Never make a heading (`h1`–`h6`) or a table header cell (`th`) a link.** Making things linkable is good, but a clickable heading or column header reads as ambiguous — is it a label or a control? Link the body text/data cell instead, or use the stretched-link pattern (`.card .body-link::after`, see "Badges" section of `lf-components.css`) to make an entire card clickable via one visible link elsewhere in it.
+- **Button/link labels are noun phrases, not verb phrases.** "Specification", not "Read the specification"; "Core profile", not "or see the core profile". The control itself (a `<button>`/`<a class="btn">`, or its position as a link) already signals that clicking does something — restating the action in the label is redundant, and inconsistent verb choices ("Read"/"See"/"View"/"Go to") across a page read as sloppier than they are. Says what you'll get, not what to do to get it.
 
 ## Development notes
 
