@@ -5,12 +5,12 @@
    to site-specific link classes) stay local to each consumer instead of
    being forced identical here. */
 
-/* Text selection — a quarter-strength tint of the link color behind the
+/* Text selection — a 20% tint of the link color behind the
    text, which keeps its own color so it stays readable in light and dark
    mode. A consumer can still override this in its local style.css, which
    loads after this file. */
 ::selection {
-    background-color: rgba(var(--bs-link-color-rgb), 0.25);
+    background-color: rgba(var(--bs-link-color-rgb), 0.2);
 }
 
 /* Headings — the vendored Bootstrap 5.3.2 build hardcodes font-weight:500
