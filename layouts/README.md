@@ -32,3 +32,7 @@ description: "A complete index of example.com."
 permalink: /site-index/
 ---
 ```
+
+## `post.html`
+
+The one layout for long-form posts — lukefretwell's notes and govfresh's thoughts both use it (set `layout: "post"` in the collection defaults; no per-collection copies). Hero (title, description, image, byline, date, updated, read time) sits in the content column so the "On this page" sidebar starts level with the h1. Breadcrumb comes from `page.parent` + `page.label` (falling back to `page.folder`). Requires a site-owned `post-after.html` include (more-notes on lukefretwell, previews on govfresh; may be empty). Extras like contributors, share, bio and topics render only when the page has the data.

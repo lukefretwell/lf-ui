@@ -1,0 +1,8 @@
+{% if page.contributors %}
+  <div class="section-divider">
+    <h2 class="h4 mb-2">Contributors</h2>
+    <p class="contributors-text">Special thanks to the following for
+      <a href="{{ site.baseurl }}/contributors">contributing</a>
+      to this page: {% assign contributors = page.contributors | join: ', ' %}{{ contributors }}</p>
+  </div>
+{% endif %}
