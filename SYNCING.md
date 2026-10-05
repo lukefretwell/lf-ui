@@ -1,6 +1,6 @@
 # Updating an lf-ui consumer
 
-Consumer repositories (`luke.fretwell.github.io`, `govfresh.github.io`) vendor the bundle so they remain deployable independently from plain static hosting.
+Consumer repositories (`lukefretwell.github.io`, `govfresh.github.io`, `schemaGov`) vendor the bundle so they remain deployable independently from plain static hosting.
 
 ## Bundle files
 
@@ -34,7 +34,27 @@ sed 's#\.\./vendor/fonts/#/assets/fonts/#g' theme/lf-theme.css > <consumer>/asse
 
 `scripts/check-sync.js` already normalizes this substitution away before diffing, so it won't false-positive as drift. Font *files* themselves (`vendor/fonts/*.woff2`) still need to be copied byte-for-byte into the consumer's existing `assets/fonts/` tree.
 
+## schemaGov (Eleventy)
+
+schemaGov is Eleventy with `public/` as its passthrough root. It consumes lf-ui the same way the Jekyll sites do — byte-identical, never hand-ported:
+
+- CSS/JS bundle → `public/assets/lf-ui/`, `public/js/theme.js` (fonts path `fonts/`).
+- Shared includes `nav.html`, `footer.html`, `footer-nav.html`, `cta-banner.html`, `favicon.html` → `_includes/`, plus `data/icon_presets.json` → `_data/`.
+- They render because schemaGov's page layout (`_includes/layouts/base.liquid`) is Liquid, `eleventy.config.js` enables `setLiquidOptions({ jekyllInclude: true, dynamicPartials: false })`, and `_data/site.js` exposes `site` in Jekyll's shape (`site.baseurl`, `site.data.site`, `site.data.nav`, `site.data.icon_presets`). Site config lives in `_lib/site.json`.
+- Site-owned (not vendored): `style.html`, `js.html`, the `<head>` in `base.liquid`, and the `.njk` content pages.
+
+If a shared include needs a new `site.*` value, add it to `_data/site.js`, not to the include.
+
+## Shared rule: no restyling in sites
+
+Body background/text, the dark palette, visited-link color, prose links, blockquote, card stretched links, `.post` heading spacing and the byline/author link treatment live only in `lf-theme.css`/`lf-components.css` (lukefretwell values). `check-sync.js` fails if a site's `css/style.css` redefines them. If a site needs to look different, change lf-ui so all three change.
+
+`theme.js` loads in `<head>` on every site (Jekyll: `head-meta.html`; schemaGov: `base.liquid`) so there is no light flash before first paint.
+
 ## Update procedure
+
+Fast path: `node scripts/check-sync.js --write` re-vendors every drifted file into all three consumers (with font-path rewriting); then review each consumer's diff. Plain `node scripts/check-sync.js` reports drift and style-override violations, and exits 1.
+
 
 1. Confirm the consumer has no unrelated uncommitted changes.
 2. Copy the complete bundle from one tagged release or commit (rewriting font paths in `lf-theme.css` per above).
