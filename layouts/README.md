@@ -33,6 +33,12 @@ permalink: /site-index/
 ---
 ```
 
+## `services.html` / `service.html`
+
+`services.html` lists services and themes. It uses the `_services` collection (sorted by `order`) when a consumer has one, and `site.data.services.services` otherwise.
+
+`service.html` is one service's page: "Services" breadcrumb, title, description, list, then any body text. It needs a `services` collection (`permalink: /services/:title`) and defaults setting `layout: "service"`, `folder: "Services"`, `parent: "services"`. Front matter: `title`, `description`, `icon`, `order`, `items`.
+
 ## `post.html`
 
 The one layout for long-form posts — lukefretwell's notes and govfresh's thoughts both use it (set `layout: "post"` in the collection defaults; no per-collection copies). Hero (title, description, image, byline, date, updated, read time) sits in the content column so the "On this page" sidebar starts level with the h1. Breadcrumb comes from `page.parent` + `page.label` (falling back to `page.folder`). Requires a site-owned `post-after.html` include (more-notes on lukefretwell, previews on govfresh; may be empty). Extras like contributors, share, bio and topics render only when the page has the data.
