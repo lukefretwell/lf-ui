@@ -160,3 +160,18 @@ Accumulated authoring rules for anyone (human or agent) writing markup against t
 
 - No npm package, no build step — stays static-host-friendly, matching how both consumer sites deploy (GitHub Pages).
 - Do not edit a consumer's vendored copy directly. Make the fix in `govfresh-ui`, then re-vendor into consumers.
+
+## License
+
+[MIT](LICENSE).
+
+`govfresh-ui` is currently built on Bootstrap. The plan is to separate GovFresh's own styles and templates from it.
+
+Third-party files in `vendor/` keep their own licenses, which the MIT license above does not replace:
+
+| Material | License |
+|---|---|
+| Bootstrap (`vendor/bootstrap.*`) | [MIT](https://github.com/twbs/bootstrap/blob/main/LICENSE) |
+| Public Sans (`vendor/fonts/public-sans/`) | [SIL Open Font License 1.1](vendor/fonts/public-sans/OFL.txt) |
+| Roboto Mono (`vendor/fonts/roboto-mono/`) | [SIL Open Font License 1.1](vendor/fonts/roboto-mono/OFL.txt) |
+| Font Awesome Free icons (`vendor/icons/`) | [CC BY 4.0](https://fontawesome.com/license/free) |
