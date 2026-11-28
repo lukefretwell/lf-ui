@@ -1,14 +1,14 @@
-# lf-ui
+# govfresh-ui
 
 GovFresh's Bootstrap-based UI system, used by `govfresh.github.io`, `schemaGov` and `lukefretwell.github.io`.
 
-Policy this implements — accent color, typography, accessibility baseline — is canonical in [lf-standards](https://github.com/govfresh/lf-standards), not here.
+Policy this implements — accent color, typography, accessibility baseline — is canonical in [govfresh-standards](https://github.com/govfresh/govfresh-standards), not here.
 
 ## Unified theme, not just DRY code
 
 This is a shared theme for a scaled ecosystem, not a grab-bag of "mostly the same" includes. When a shared include or CSS rule covers the same kind of UI element on both consumers (an image + caption, a card, a button), it should render **identically** — same classes, same markup — not merely be structurally consolidated into one file while quietly keeping each site's prior visual differences as parameterized branches. A per-content-type branch is legitimate when it reflects a real content-model difference (different fields, different collections, different schema.org needs — see the schema.org note under "Standing up a new consumer" below); it is not legitimate as a way to preserve incidental styling drift between the two sites. When resolving a divergence, default to whichever site's implementation is more complete/mature as the template, unless told otherwise.
 
-Mechanically modeled on [`scangov/components`](https://github.com/ScanGov/components), which is a source only — no ScanGov site consumes `lf-ui` and no `lf-ui` consumer touches `scangov/components`.
+Mechanically modeled on [`scangov/components`](https://github.com/ScanGov/components), which is a source only — no ScanGov site consumes `govfresh-ui` and no `govfresh-ui` consumer touches `scangov/components`.
 
 ## Project structure
 
@@ -21,15 +21,15 @@ vendor/
     public-sans/
     roboto-mono/
 theme/
-  lf-theme.css                # accent color, border-color, shadow and font-family/motion tokens, light/dark via [data-bs-theme]
-  lf-components.css           # shared component rules (.navbar/.navbar-brand/.navbar-nav, #logo sizing, .btn, .card, .drop-shadow(2), skip-link focus state, etc.) that consume lf-theme.css's tokens
+  gf-theme.css                # accent color, border-color, shadow and font-family/motion tokens, light/dark via [data-bs-theme]
+  gf-components.css           # shared component rules (.navbar/.navbar-brand/.navbar-nav, #logo sizing, .btn, .card, .drop-shadow(2), skip-link focus state, etc.) that consume gf-theme.css's tokens
 includes/                     # Jekyll _includes-compatible partials — see includes/README.md
   nav.html, breadcrumb.html, footer.html, footer-nav.html, cta-banner.html, share.html,
   author.html, social.html, bio.html, bio-card.html, role.html, analytics.html, favicon.html
 layouts/                      # Jekyll _layouts-compatible full-page templates — see layouts/README.md
   people.html, site-index.html
 js/
-  cta-banner.js                 # pairs with includes/cta-banner.html, vendors to assets/lf-ui/
+  cta-banner.js                 # pairs with includes/cta-banner.html, vendors to assets/gf-ui/
   analytics.js                 # pairs with includes/analytics.html, vendors to plain js/ (see SYNCING.md)
 templates/                    # static component reference pages (not yet populated — see below)
 scripts/
@@ -53,9 +53,9 @@ Pinned to 5.3.2 — the same version already deployed in `southern-unionists` an
 
 ## Consumer updates
 
-Consumers vendor `theme/lf-theme.css`, `theme/lf-components.css`, the `vendor/` files they use, and `BOOTSTRAP_VERSION` together, into their own `assets/lf-ui/` folder. See `SYNCING.md` — including the expected font-path substitution in `lf-theme.css`.
+Consumers vendor `theme/gf-theme.css`, `theme/gf-components.css`, the `vendor/` files they use, and `BOOTSTRAP_VERSION` together, into their own `assets/gf-ui/` folder. See `SYNCING.md` — including the expected font-path substitution in `gf-theme.css`.
 
-Rules that don't actually render identically across both consumers (currently just `.card` border-hover retargeting, tied to site-specific link classes) stay in each consumer's own `css/style.css` rather than being forced into `lf-components.css`. Only extract a rule once it's genuinely identical (or should be) on both sites.
+Rules that don't actually render identically across both consumers (currently just `.card` border-hover retargeting, tied to site-specific link classes) stay in each consumer's own `css/style.css` rather than being forced into `gf-components.css`. Only extract a rule once it's genuinely identical (or should be) on both sites.
 
 The full navbar (`.navbar`/`.navbar-brand`/`.navbar-nav`/`.nav-link`/`.navbar-toggler`/`.navbar-collapse`/`#logo`) is fully shared — no per-site navbar CSS should exist in either consumer. `includes/nav.html` is the matching shared markup; both consumers vendor it verbatim.
 
@@ -137,7 +137,7 @@ The rest of the 27 (`dm.html`, `podcast.html`, `book.html`, `signal.html`, `quic
 
 ## Standing up a new consumer
 
-What a brand-new consumer needs, now that the sections above cover most per-site config with one shape each. No custom edits to any shared `lf-ui` include should be required for a site that fits this — if one turns out to be needed, that's a signal something should have been data-driven here and wasn't.
+What a brand-new consumer needs, now that the sections above cover most per-site config with one shape each. No custom edits to any shared `govfresh-ui` include should be required for a site that fits this — if one turns out to be needed, that's a signal something should have been data-driven here and wasn't.
 
 - **`_config.yml`**: `title`/`description`/`url`/`author`/`logo` (identity Jekyll itself and its plugins read directly — these stay in `_config.yml`, not `site.json`, since `jekyll-feed`/`jekyll-sitemap`/etc. expect them there) plus a real `collections:`/`defaults:` block matching this site's own content model. This part is inherently custom — different sites have different content types — and isn't something to consolidate away.
 - **`_data/site.json`**: feedback, scangov, cta_banner, analytics, theme — see above for the full shape. One file, one shape, every key independently optional except what `footer.html`/`analytics.html`/`header.html`/the webmanifest actually read.
@@ -150,13 +150,13 @@ What a brand-new consumer needs, now that the sections above cover most per-site
 
 Accumulated authoring rules for anyone (human or agent) writing markup against this theme — not enforced by a linter, so they only hold if whoever's editing a consumer's templates knows to follow them:
 
-- **No `text-uppercase` eyebrow/caption labels.** Full caps reads as shouting and turns an ordinary word ("sections", "schemas") into something a reader has to re-parse as "not really a word". Use the `.lf-eyebrow` class (`theme/lf-components.css`) instead, and keep the label text itself in sentence case.
-- **Badges are regular weight, not bold** (`.badge` sets `font-weight: 400` in `theme/lf-components.css`). A status tag is a label, not emphasis — don't reintroduce bold with an inline style or a wrapping `<strong>`.
+- **No `text-uppercase` eyebrow/caption labels.** Full caps reads as shouting and turns an ordinary word ("sections", "schemas") into something a reader has to re-parse as "not really a word". Use the `.gf-eyebrow` class (`theme/gf-components.css`) instead, and keep the label text itself in sentence case.
+- **Badges are regular weight, not bold** (`.badge` sets `font-weight: 400` in `theme/gf-components.css`). A status tag is a label, not emphasis — don't reintroduce bold with an inline style or a wrapping `<strong>`.
 - **Don't use `<strong>` unless the content genuinely needs emphasis and that's actually been asked for.** It's not a default way to make a name or title stand out — links, headings, and table structure already carry that weight. Reach for it only when someone explicitly wants a word or phrase emphasized.
-- **Never make a heading (`h1`–`h6`) or a table header cell (`th`) a link.** Making things linkable is good, but a clickable heading or column header reads as ambiguous — is it a label or a control? Link the body text/data cell instead, or use the stretched-link pattern (`.card .body-link::after`, see "Badges" section of `lf-components.css`) to make an entire card clickable via one visible link elsewhere in it.
+- **Never make a heading (`h1`–`h6`) or a table header cell (`th`) a link.** Making things linkable is good, but a clickable heading or column header reads as ambiguous — is it a label or a control? Link the body text/data cell instead, or use the stretched-link pattern (`.card .body-link::after`, see "Badges" section of `gf-components.css`) to make an entire card clickable via one visible link elsewhere in it.
 - **Button/link labels are noun phrases, not verb phrases.** "Specification", not "Read the specification"; "Core profile", not "or see the core profile". The control itself (a `<button>`/`<a class="btn">`, or its position as a link) already signals that clicking does something — restating the action in the label is redundant, and inconsistent verb choices ("Read"/"See"/"View"/"Go to") across a page read as sloppier than they are. Says what you'll get, not what to do to get it.
 
 ## Development notes
 
 - No npm package, no build step — stays static-host-friendly, matching how both consumer sites deploy (GitHub Pages).
-- Do not edit a consumer's vendored copy directly. Make the fix in `lf-ui`, then re-vendor into consumers.
+- Do not edit a consumer's vendored copy directly. Make the fix in `govfresh-ui`, then re-vendor into consumers.

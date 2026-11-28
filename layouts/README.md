@@ -1,4 +1,4 @@
-# lf-ui layouts
+# govfresh-ui layouts
 
 Jekyll `_layouts`-compatible full-page templates, vendored (copied) into each consumer's own `_layouts/` directory — same no-build-step model as `includes/`. See `../SYNCING.md`.
 
