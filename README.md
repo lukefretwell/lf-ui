@@ -1,8 +1,8 @@
 # lf-ui
 
-Implemented Bootstrap-based UI system for `luke.fretwell.github.io` and `govfresh.github.io`.
+GovFresh's Bootstrap-based UI system, used by `govfresh.github.io`, `schemaGov` and `lukefretwell.github.io`.
 
-Policy this implements — accent color, typography, accessibility baseline — is canonical in [lf-standards](https://github.com/lukefretwell/lf-standards), not here. See `../lf-design-system-plan.md` in the local working copy for the full plan.
+Policy this implements — accent color, typography, accessibility baseline — is canonical in [lf-standards](https://github.com/lukefretwell/lf-standards), not here.
 
 ## Unified theme, not just DRY code
 
