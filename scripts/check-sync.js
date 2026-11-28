@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-// Reports drift between lf-ui's shared files and each consumer site's own
-// vendored copy, and (with --write) re-vendors them. lf-ui has no build
-// step, so nothing else catches a consumer falling behind after an lf-ui
+// Reports drift between govfresh-ui's shared files and each consumer site's own
+// vendored copy, and (with --write) re-vendors them. govfresh-ui has no build
+// step, so nothing else catches a consumer falling behind after an govfresh-ui
 // edit.
 // Adapted from scangov/components/scripts/check-sync.js.
 // Run: node scripts/check-sync.js          (report drift, exit 1 if any)
-//      node scripts/check-sync.js --write  (overwrite drifted/missing consumer files from lf-ui)
+//      node scripts/check-sync.js --write  (overwrite drifted/missing consumer files from govfresh-ui)
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
@@ -13,7 +13,7 @@ import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '..');
 const write = process.argv.includes('--write');
 
-// fontsPrefix: what lf-theme.css's `../vendor/fonts/` becomes in that
+// fontsPrefix: what gf-theme.css's `../vendor/fonts/` becomes in that
 // consumer (SYNCING.md). partials: whether the consumer vendors all of
 // includes/ + layouts/. schemaGov vendors only the includeOnly subset (its
 // head/js/style includes are its own).
@@ -27,21 +27,21 @@ const consumers = [
     includeOnly: ['nav.html', 'footer.html', 'footer-nav.html', 'cta-banner.html', 'favicon.html'] },
 ];
 
-// sourcePath is relative to lf-ui; consumerPath is relative to the consumer
+// sourcePath is relative to govfresh-ui; consumerPath is relative to the consumer
 // root (its public/ dir for schemaGov). Everything vendored lives under
-// assets/lf-ui/ except js/analytics.js, toc-active.js, theme.js and
+// assets/gf-ui/ except js/analytics.js, toc-active.js, theme.js and
 // favicon/site.webmanifest, which sit beside each consumer's own scripts and
 // favicons — see SYNCING.md.
 const trackedFiles = [
-  { sourcePath: 'theme/lf-theme.css', consumerPath: 'assets/lf-ui/lf-theme.css', fonts: true },
-  { sourcePath: 'theme/lf-components.css', consumerPath: 'assets/lf-ui/lf-components.css' },
-  { sourcePath: 'vendor/bootstrap.min.css', consumerPath: 'assets/lf-ui/bootstrap.min.css' },
-  { sourcePath: 'vendor/bootstrap.bundle.min.js', consumerPath: 'assets/lf-ui/bootstrap.bundle.min.js' },
-  { sourcePath: 'js/cta-banner.js', consumerPath: 'assets/lf-ui/cta-banner.js' },
+  { sourcePath: 'theme/gf-theme.css', consumerPath: 'assets/gf-ui/gf-theme.css', fonts: true },
+  { sourcePath: 'theme/gf-components.css', consumerPath: 'assets/gf-ui/gf-components.css' },
+  { sourcePath: 'vendor/bootstrap.min.css', consumerPath: 'assets/gf-ui/bootstrap.min.css' },
+  { sourcePath: 'vendor/bootstrap.bundle.min.js', consumerPath: 'assets/gf-ui/bootstrap.bundle.min.js' },
+  { sourcePath: 'js/cta-banner.js', consumerPath: 'assets/gf-ui/cta-banner.js' },
   { sourcePath: 'js/analytics.js', consumerPath: 'js/analytics.js', partialsOnly: true },
   { sourcePath: 'js/toc-active.js', consumerPath: 'js/toc-active.js', partialsOnly: true },
-  { sourcePath: 'js/toc-active.js', consumerPath: 'assets/lf-ui/toc-active.js', partialsOff: true },
-  { sourcePath: 'js/copy-field.js', consumerPath: 'assets/lf-ui/copy-field.js', partialsOff: true },
+  { sourcePath: 'js/toc-active.js', consumerPath: 'assets/gf-ui/toc-active.js', partialsOff: true },
+  { sourcePath: 'js/copy-field.js', consumerPath: 'assets/gf-ui/copy-field.js', partialsOff: true },
   { sourcePath: 'js/theme.js', consumerPath: 'js/theme.js' },
   { sourcePath: 'favicon/site.webmanifest', consumerPath: 'assets/img/favicon/site.webmanifest', partialsOnly: true },
   { sourcePath: 'data/services.json', consumerPath: '_data/services.json', partialsOnly: true },
@@ -57,8 +57,8 @@ const trackedDirs = [
   { sourceDir: 'layouts', consumerDir: '_layouts' },
 ];
 
-// lf-theme.css's @font-face rules point at ../vendor/fonts/... (correct
-// relative to lf-ui's own theme/ folder); each consumer serves fonts from
+// gf-theme.css's @font-face rules point at ../vendor/fonts/... (correct
+// relative to govfresh-ui's own theme/ folder); each consumer serves fonts from
 // its own location (SYNCING.md). Expected substitution, not drift.
 function applyFonts(content, consumer) {
   return content.replaceAll('../vendor/fonts/', consumer.fontsPrefix);
@@ -112,7 +112,7 @@ for (const consumer of consumers) {
 }
 
 // Palette lint: body colors, dark palette and the shared content rules
-// live only in lf-ui. A site stylesheet redefining them is how the three
+// live only in govfresh-ui. A site stylesheet redefining them is how the three
 // sites drifted apart before.
 const forbidden = [/--bs-body-bg\s*:/, /--bs-body-color\s*:/, /--site-link-visited\s*:/, /^\s*(main )?a:visited\s*\{/m, /^blockquote\s*\{/m, /\.author-link\s*[,{]/, /\.toc-link/];
 let lintFails = 0;
@@ -122,14 +122,14 @@ for (const consumer of consumers) {
     if (!existsSync(full)) continue;
     const text = readFileSync(full, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
     for (const re of forbidden) {
-      if (re.test(text)) { lintFails++; console.log(`LINT: ${consumer.name}/${css} redefines a shared lf-ui rule: ${re}`); }
+      if (re.test(text)) { lintFails++; console.log(`LINT: ${consumer.name}/${css} redefines a shared govfresh-ui rule: ${re}`); }
     }
   }
 }
 if (lintFails) outOfSync += lintFails;
 
 if (checked === 0) {
-  console.log('check-sync: no consumer has vendored lf-ui yet — nothing to check.');
+  console.log('check-sync: no consumer has vendored govfresh-ui yet — nothing to check.');
 } else if (outOfSync === 0) {
   console.log(`check-sync: all ${checked} file/repo pairs in sync.`);
 } else if (write) {
